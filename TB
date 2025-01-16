@@ -1,0 +1,31 @@
+module singleport_ramtb; reg clk;
+reg w_a;
+reg [3:0] add_a;
+reg [7:0] d_in_a;
+wire [7:0] d_out_a; 
+singleport_ram uut (
+.clk(clk),
+ 
+.w_a(w_a),
+.add_a(add_a),
+.d_in_a(d_in_a),
+.d_out_a(d_out_a),
+);
+always #5 clk = ~clk; 
+initial begin
+clk = 0;
+w_a = 0;
+add_a = 0;
+d_in_a = 0;
+#10;
+w_a = 1; add_a = 4'b0001; d_in_a = 8'hB5; 
+#10;
+w_a = 0; add_a = 4'b0001;
+#10;
+w_a = 1; add_a = 4'b0011; d_in_a = 8'hEE; 
+#10;
+w_a = 0;
+add_a = 4'b0011;
+#10;
+$stop;
+end endmodule
